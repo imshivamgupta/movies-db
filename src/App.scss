@@ -143,6 +143,9 @@ nav {
         background-color: tomato;
         color: $text-color;
     }
+    &.added {
+        background-color: #ffdd00;
+    }
 }
 
 main {

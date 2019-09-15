@@ -41,7 +41,7 @@ export default class Search extends Component {
               <div className="movie" key={movie.id}>
                 <Link
                   to={`/movie/${movie.id}`}
-                  onClick={() => this.setState({ display: 'none', search: '' })}
+                  onClick={() => this.setState({ display: 'none' })}
                 >
                   <img src={movie.posterurl} alt={movie.title} />
                   <div className="text">

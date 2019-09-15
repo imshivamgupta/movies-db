@@ -3,8 +3,38 @@ import { Link } from 'react-router-dom';
 import { MoviesContext } from '../Context';
 export default class SingleMovie extends Component {
   static contextType = MoviesContext;
+  state = {
+    added: [],
+    found: false
+  };
+  componentDidMount() {
+    try {
+      let data = JSON.parse(localStorage.getItem('watchLater')) || [];
+      if (data.length > 0) {
+        this.setState({ added: [...new Set(data)] }, () => {
+          const { added } = this.state;
+          const found = added.filter(el => el === this.props.match.params.id);
+          if (found.length > 0) {
+            this.setState({ found: true });
+          }
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   addToWatch = id => {
-    // e.preventDefault();
+    try {
+      this.setState({ added: [...this.state.added, id], found: true });
+      localStorage.setItem(
+        'watchLater',
+        JSON.stringify([...new Set(this.state.added)])
+      );
+      // this.setState({ added: [...new Set(data)] });
+    } catch (e) {
+      console.log(e);
+    }
   };
   render() {
     const { id } = this.props.match.params;
@@ -43,10 +73,10 @@ export default class SingleMovie extends Component {
             </p>
             <a
               href="#"
-              className="btn add"
+              className={this.state.found ? 'btn added' : 'btn add'}
               onClick={this.addToWatch.bind(this, currentMovie.id)}
             >
-              Add To Watch
+              {this.state.found ? 'Added WatchList' : 'Add To Watch'}
             </a>
           </div>
         </main>
