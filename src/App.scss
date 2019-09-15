@@ -54,13 +54,32 @@ nav {
             left: 39.6%;
             background: white;
             color: black;
+            max-height: 300px;
+            overflow: hidden;
+            overflow-y: scroll;
             .movie {
                 &:not(:last-child) {
                     margin-bottom: .5rem;
                 }
-                display: flex;
+                a {
+                    display: flex;
+                }
                 img {
                     width: 60px;
+                }
+                .text {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    p {
+                        color: black;
+                        &.actors {
+                            font-size: .6rem;
+                        }
+                        span {
+                            font-weight: 600;
+                        }
+                    }
                 }
             }
         }

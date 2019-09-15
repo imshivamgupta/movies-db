@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MoviesContext } from '../Context';
-
+import { Link } from 'react-router-dom';
 export default class Search extends Component {
   static contextType = MoviesContext;
   state = {
@@ -33,16 +33,24 @@ export default class Search extends Component {
             placeholder="Search Movie, Actor or Whatever"
             name="search"
             onChange={this.handleSearch}
+            autoComplete="off"
           />
           <button>Search</button>
           <div className="result" style={{ display: this.state.display }}>
             {this.state.results.map(movie => (
               <div className="movie" key={movie.id}>
-                <img src={movie.posterurl} alt={movie.title} />
-                <div className="text">
-                  <p>{movie.title}</p>
-                  <p>{movie.actors}</p>
-                </div>
+                <Link
+                  to={`/movie/${movie.id}`}
+                  onClick={() => this.setState({ display: 'none', search: '' })}
+                >
+                  <img src={movie.posterurl} alt={movie.title} />
+                  <div className="text">
+                    <p>{movie.title}</p>
+                    <p className="actors">
+                      <span>Actors:</span> {movie.actors}
+                    </p>
+                  </div>
+                </Link>
               </div>
             ))}
           </div>
