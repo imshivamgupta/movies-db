@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Search from './Search';
-import WatchList from './WatchList';
+
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
