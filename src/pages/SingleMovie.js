@@ -26,11 +26,10 @@ export default class SingleMovie extends Component {
 
   addToWatch = id => {
     try {
+      let data = JSON.parse(localStorage.getItem('watchLater')) || [];
+      data.push(id);
       this.setState({ added: [...this.state.added, id], found: true });
-      localStorage.setItem(
-        'watchLater',
-        JSON.stringify([...new Set(this.state.added)])
-      );
+      localStorage.setItem('watchLater', JSON.stringify([...new Set(data)]));
       // this.setState({ added: [...new Set(data)] });
     } catch (e) {
       console.log(e);
